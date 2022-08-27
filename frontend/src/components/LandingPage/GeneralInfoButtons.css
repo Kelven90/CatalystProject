@@ -1,0 +1,80 @@
+.general-info-buttons{
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.general-info-buttons__login{
+	width: 242px;
+	height: 20px;
+
+	/* Text Single/200/Bold */
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 20px;
+
+	/* identical to box height, or 111% */
+	text-align: center;
+
+	/* Neutral/100 */
+	color: #FFFFFF;
+
+	/* Inside auto layout */
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+
+	padding: 18px 40px;
+
+	width: 322px;
+	height: 56px;
+
+	background: #1D428A;
+	border: 1px solid #4A3AFF;
+	border-radius: 100px;
+
+	margin-right: 20px;
+}
+
+.general-info-buttons__login:hover,
+.general-info-buttons__login:active{
+	background-color: #4074B2;
+}
+
+
+.genearl-info-buttons__learnMore{
+	/* Text Single/200/Regular */
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 20px;
+
+	/* identical to box height, or 111% */
+	text-align: center;
+
+	color: #1D428A;
+
+	box-sizing: border-box;
+
+	/* Auto layout */
+	padding: 18px 40px;
+
+	/* Primary/Color 1 */
+	border: 1px solid #4A3AFF;
+	border-radius: 56px;
+
+	/* Inside auto layout */
+	flex: none;
+	order: 1;
+	flex-grow: 0;
+	margin-left: 20px;
+}
+
+.genearl-info-buttons__learnMore:hover,
+.general-info-buttons__learnMore:active{
+	background-color: #ffffff;
+}
+

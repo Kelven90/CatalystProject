@@ -1,0 +1,18 @@
+.landing__title{
+	width: 252px;
+	height: 20px;
+
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 36px;
+	line-height: 20px;
+
+	/* identical to box height, or 56% */
+	text-align: center;
+
+	padding-top: 23px;
+	margin: auto;
+
+	color: #000000;
+}

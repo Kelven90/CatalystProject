@@ -1,0 +1,30 @@
+.faq{
+	padding-top: 100px;
+	padding-bottom: 200px;
+
+	padding: auto;
+}
+
+.faq__title{
+	width: 711px;
+	height: 62px;
+
+	/* Headings/Typography Size 1 */
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 50px;
+	line-height: 62px;
+
+	/* identical to box height, or 124% */
+	text-align: center;
+
+	color: #1D428A;
+
+	padding-bottom: 70px;	
+	margin: auto;
+}
+
+.faq__faqs{
+
+}

@@ -13,7 +13,7 @@ function HowItWork() {
   ];
 
   return (
-    <div>
+    <div className="how-it-work">
       <div className="how-it-work__title">
         How it works
       </div>

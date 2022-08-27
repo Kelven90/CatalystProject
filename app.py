@@ -1,73 +1,128 @@
-# Store this code in 'app.py' file
+from flask import Flask, render_template, request, url_for, redirect, session
+from pymongo import MongoClient
+import bcrypt
 
-from flask import Flask, render_template, request, redirect, url_for, session
-from flask_mysqldb import MySQL
-import MySQLdb.cursors
-import re
-
+#set app as a Flask instance 
 app = Flask(__name__)
+#encryption relies on secret keys so they could be run
+app.secret_key = "testing"
 
-app.secret_key = 'catalyst'
+# #connect to your Mongo DB database
+def MongoDB():
+    client = MongoClient("mongodb+srv://Kelven:JokerX1990@cluster0.prbdnzh.mongodb.net/?retryWrites=true&w=majority")
+    db = client.get_database('total_records')
+    records = db.register
+    return records
+records = MongoDB()
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'your password'
-app.config['MYSQL_DB'] = 'geeklogin'
 
-mysql = MySQL(app)
+# ##Connect with Docker Image###
+# def dockerMongoDB():
+#     client = MongoClient(host='test_mongodb',
+#                             port=27017, 
+#                             username='root', 
+#                             password='pass',
+#                             authSource="admin")
+#     db = client.users
+#     pw = "test123"
+#     hashed = bcrypt.hashpw(pw.encode('utf-8'), bcrypt.gensalt())
+#     records = db.register
+#     records.insert_one({
+#         "name": "Test Test",
+#         "email": "test@yahoo.com",
+#         "password": hashed
+#     })
+#     return records
 
-@app.route('/')
-@app.route('/login', methods =['GET', 'POST'])
+# records = dockerMongoDB()
+
+
+#assign URLs to have a particular route 
+@app.route("/", methods=['post', 'get'])
+def index():
+    message = ''
+    #if method post in index
+    if "email" in session:
+        return redirect(url_for("logged_in"))
+    if request.method == "POST":
+        user = request.form.get("fullname")
+        email = request.form.get("email")
+        password1 = request.form.get("password1")
+        password2 = request.form.get("password2")
+        #if found in database showcase that it's found 
+        user_found = records.find_one({"name": user})
+        email_found = records.find_one({"email": email})
+        if user_found:
+            message = 'There already is a user by that name'
+            return render_template('index.html', message=message)
+        if email_found:
+            message = 'This email already exists in database'
+            return render_template('index.html', message=message)
+        if password1 != password2:
+            message = 'Passwords should match!'
+            return render_template('index.html', message=message)
+        else:
+            #hash the password and encode it
+            hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
+            #assing them in a dictionary in key value pairs
+            user_input = {'name': user, 'email': email, 'password': hashed}
+            #insert it in the record collection
+            records.insert_one(user_input)
+            
+            #find the new created account and its email
+            user_data = records.find_one({"email": email})
+            new_email = user_data['email']
+            #if registered redirect to logged in as the registered user
+            return render_template('logged_in.html', email=new_email)
+    return render_template('index.html')
+
+@app.route("/login", methods=["POST", "GET"])
 def login():
-	msg = ''
-	if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
-		username = request.form['username']
-		password = request.form['password']
-		cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-		cursor.execute('SELECT * FROM accounts WHERE username = % s AND password = % s', (username, password, ))
-		account = cursor.fetchone()
-		if account:
-			session['loggedin'] = True
-			session['id'] = account['id']
-			session['username'] = account['username']
-			msg = 'Logged in successfully !'
-			return render_template('index.html', msg = msg)
-		else:
-			msg = 'Incorrect username / password !'
-	return render_template('login.html', msg = msg)
+    message = 'Please login to your account'
+    if "email" in session:
+        return redirect(url_for("logged_in"))
 
-@app.route('/logout')
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        #check if email exists in database
+        email_found = records.find_one({"email": email})
+        if email_found:
+            email_val = email_found['email']
+            passwordcheck = email_found['password']
+            #encode the password and check if it matches
+            if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
+                session["email"] = email_val
+                return redirect(url_for('logged_in'))
+            else:
+                if "email" in session:
+                    return redirect(url_for("logged_in"))
+                message = 'Wrong password'
+                return render_template('login.html', message=message)
+        else:
+            message = 'Email not found'
+            return render_template('login.html', message=message)
+    return render_template('login.html', message=message)
+
+@app.route('/logged_in')
+def logged_in():
+    if "email" in session:
+        email = session["email"]
+        return render_template('logged_in.html', email=email)
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/logout", methods=["POST", "GET"])
 def logout():
-	session.pop('loggedin', None)
-	session.pop('id', None)
-	session.pop('username', None)
-	return redirect(url_for('login'))
+    if "email" in session:
+        session.pop("email", None)
+        return render_template("signout.html")
+    else:
+        return render_template('index.html')
 
-@app.route('/register', methods =['GET', 'POST'])
-def register():
-	msg = ''
-	if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form :
-		username = request.form['username']
-		password = request.form['password']
-		email = request.form['email']
-		cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-		cursor.execute('SELECT * FROM accounts WHERE username = % s', (username, ))
-		account = cursor.fetchone()
-		if account:
-			msg = 'Account already exists !'
-		elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-			msg = 'Invalid email address !'
-		elif not re.match(r'[A-Za-z0-9]+', username):
-			msg = 'Username must contain only characters and numbers !'
-		elif not username or not password or not email:
-			msg = 'Please fill out the form !'
-		else:
-			cursor.execute('INSERT INTO accounts VALUES (NULL, % s, % s, % s)', (username, password, email, ))
-			mysql.connection.commit()
-			msg = 'You have successfully registered !'
-	elif request.method == 'POST':
-		msg = 'Please fill out the form !'
-	return render_template('register.html', msg = msg)
+
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+  app.run(debug=True)

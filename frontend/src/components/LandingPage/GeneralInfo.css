@@ -1,0 +1,47 @@
+.general-info{
+	display: flex;
+	flex-direction: column;
+}
+
+.general-info-description{
+	display: flex;
+	flex-direction: column;
+}
+
+.general-info-description__title{
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 20px;
+
+	/* identical to box height, or 111% */
+	text-align: center;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+
+	color: #1D428A;
+
+	width: 247px;
+}
+
+.general-info-description__title2{
+	width: 645.25px;
+
+	/* main heading */
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 50px;
+	line-height: 62px;
+
+	/* identical to box height, or 124% */
+	text-align: center;
+
+	/* Neutral/800 */
+	color: #170F49;
+}
+
+.general-info-description__info{
+
+}

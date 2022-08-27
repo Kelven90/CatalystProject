@@ -1,0 +1,24 @@
+.how-it-work__title{
+	width: 645.25px;
+	height: 62px;
+
+	/* Headings/Typography Size 1 */
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 50px;
+	line-height: 62px;
+
+	/* identical to box height, or 124% */
+	text-align: center;
+	margin: auto;
+	padding: 10px;
+	color: #1D428A;
+}
+
+.how-it-work__cards{
+	display: flex;
+	justify-content: space-around;
+	padding-left: 200px;
+	padding-right: 200px;
+}

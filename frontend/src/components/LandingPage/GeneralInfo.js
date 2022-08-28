@@ -16,11 +16,12 @@ function GeneralInfo(props) {
              { info }
            </div>
            <div className="general-info-description__buttons">
-             <GeneralInfoButtons />
+             <GeneralInfoButtons setCurrentPage={ props.setCurrentPage } />
            </div>
            <img
                 src={ heroImg }
-                className="general-info-description__img" />
+                className="general-info-description__img"
+                alt="image" />
          </div>
 }
 

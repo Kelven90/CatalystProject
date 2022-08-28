@@ -20,7 +20,7 @@ def index():
     message = ''
     #if method post in index
     if "email" in session:
-        return redirect(url_for("logged_in"))
+        return {'task': 'success'}
     if request.method == "POST":
         user = request.form.get("fullname")
         email = request.form.get("email")
@@ -31,13 +31,13 @@ def index():
         email_found = records.find_one({"email": email})
         if user_found:
             message = 'There already is a user by that name'
-            return render_template('index.html', message=message)
+            return {'task': 'fail'}
         if email_found:
             message = 'This email already exists in database'
-            return render_template('index.html', message=message)
+            return {'task': 'fail'}
         if password1 != password2:
             message = 'Passwords should match!'
-            return render_template('index.html', message=message)
+            return {'task': 'fail'}
         else:
             #hash the password and encode it
             hashed = bcrypt.hashpw(password2.encode('utf-8'), bcrypt.gensalt())
@@ -53,7 +53,7 @@ def index():
             #if registered redirect to logged in as the registered user
             #return render_template('logged_in.html', email=new_email)
             return me_api(user_input)
-    return render_template('index.html')
+    return {'task': 'success'}
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -81,15 +81,15 @@ def login():
             else:
                 if "email" in session:
                     # return redirect(url_for("logged_in"))
-                    return not_found(404)
+                    return {'task': 'fail'}
                 # message = 'Wrong password'
                 # return render_template('login.html', message=message)
                 
-                return not_found(404)
+                return {'task': 'fail'}
         else:
             message = 'Email not found'
             # return render_template('login.html', message=message)
-            return not_found(404)
+            return {'task': 'fail'}
 
 
     #return render_template('login.html', message=message)
@@ -99,17 +99,17 @@ def login():
 def logged_in():
     if "email" in session:
         email = session["email"]
-        return render_template('logged_in.html', email=email)
+        return {'task': 'success'}
     else:
-        return redirect(url_for("login"))
+        return {'task': 'fail'}
 
 @app.route("/logout", methods=["POST", "GET"])
 def logout():
     if "email" in session:
         session.pop("email", None)
-        return render_template("logged_out.html")
+        return {'task': 'success'}
     else:
-        return render_template('index.html')
+        return {'task': 'fail'}
 
 
 @app.route("/me")
@@ -128,11 +128,11 @@ def me_api(dict):
         "password": dict['password'],
         }  
 
-@app.errorhandler(404)
-def not_found(error):
-    resp = make_response(render_template('error.html'), 404)
-    resp.headers['ERROR'] = 'A value'
-    return resp
+# @app.errorhandler(404)
+# def not_found(error):
+#     resp = make_response(render_template('error.html'), 404)
+#     resp.headers['ERROR'] = 'A value'
+#     return resp
 
 if __name__ == "__main__":
   app.run(debug=True)

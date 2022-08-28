@@ -25,6 +25,7 @@ function Login(props) {
 
   useEffect(() => {
     const fetchLogin = async() => {
+      console.log("post");
       await fetch("/login", {
         method: "POST",
         headers: {

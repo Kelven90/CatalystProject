@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, session
+from datetime import timedelta
 from pymongo import MongoClient
 import bcrypt
 
@@ -6,6 +7,8 @@ import bcrypt
 app = Flask(__name__)
 #encryption relies on secret keys so they could be run
 app.secret_key = "catalyst"
+# set the duration of a session
+app.permanent_session_lifetime = timedelta(minutes=30)
 
 # #connect to your Mongo DB database
 def MongoDB():
@@ -14,27 +17,6 @@ def MongoDB():
     records = db.register
     return records
 records = MongoDB()
-
-
-# ##Connect with Docker Image###
-# def dockerMongoDB():
-#     client = MongoClient(host='test_mongodb',
-#                             port=27017, 
-#                             username='root', 
-#                             password='pass',
-#                             authSource="admin")
-#     db = client.users
-#     pw = "test123"
-#     hashed = bcrypt.hashpw(pw.encode('utf-8'), bcrypt.gensalt())
-#     records = db.register
-#     records.insert_one({
-#         "name": "Test Test",
-#         "email": "test@yahoo.com",
-#         "password": hashed
-#     })
-#     return records
-
-# records = dockerMongoDB()
 
 @app.route("/")
 def home():
@@ -71,10 +53,12 @@ def index():
             user_input = {'name': user, 'email': email, 'password': hashed}
             #insert it in the record collection
             records.insert_one(user_input)
-            
+            me_api(user_input)
             #find the new created account and its email
             user_data = records.find_one({"email": email})
             new_email = user_data['email']
+            
+            
             #if registered redirect to logged in as the registered user
             return render_template('logged_in.html', email=new_email)
     return render_template('index.html')
@@ -94,9 +78,13 @@ def login():
         if email_found:
             email_val = email_found['email']
             passwordcheck = email_found['password']
+
             #encode the password and check if it matches
             if bcrypt.checkpw(password.encode('utf-8'), passwordcheck):
+                session.permanent = True
                 session["email"] = email_val
+                user_input = {'email': email_val, 'password': password}
+                me_api(user_input)
                 return redirect(url_for('logged_in'))
             else:
                 if "email" in session:
@@ -106,6 +94,8 @@ def login():
         else:
             message = 'Email not found'
             return render_template('login.html', message=message)
+
+
     return render_template('login.html', message=message)
 
 @app.route('/logged_in')
@@ -124,6 +114,22 @@ def logout():
     else:
         return render_template('index.html')
 
+
+@app.route("/me")
+def me_api(dict):
+    # login API
+    if len(dict) == 2:
+        return {
+        "email": dict['email'],
+        "password": dict['password'],
+        }   
+    # register API
+    elif len(dict) == 3:
+        return {
+        "name": dict['name'],
+        "email": dict['email'],
+        "password": dict['password'],
+        }  
 
 
 if __name__ == "__main__":

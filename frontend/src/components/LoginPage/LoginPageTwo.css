@@ -127,6 +127,9 @@
 
 	margin-top: 20px;
 	margin-bottom: 20px;
+
+	color: #1D428A;
+	border-color: #1D428A;
 }
 
 .login-page-two__subject-search-bar[placeholder]{
@@ -137,8 +140,6 @@
 	line-height: 62px;
 
 	/* or 194% */
-
-	color: #D9DBE9;
 }
 
 .login-page-two__subject-search-result{

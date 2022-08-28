@@ -1,0 +1,143 @@
+.login-page-three{
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+}
+
+.login-page-three__title{
+	width: 945px;
+
+	/* main heading */
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 50px;
+	line-height: 62px;
+
+	/* or 124% */
+	text-align: center;
+
+	color: #1D428A;
+
+	margin: auto;
+
+}
+
+.login-page-three__hint{
+	width: 718px;
+
+	/* body text */
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 30px;
+
+	/* identical to box height, or 167% */
+
+	color: #000000;
+	margin: auto;
+}
+
+.login-page-three__form{
+	display: flex;
+	flex-direction: row;
+	margin: auto;
+	margin-top: 50px;
+}
+
+.login-page-three__form-title{
+	width: 572px;
+
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 32px;
+	line-height: 62px;
+
+	/* identical to box height, or 194% */
+	text-decoration-line: underline;
+
+	color: #1D428A;
+	margin: auto;
+
+	margin-bottom: 20px;
+}
+
+.login-page-three__spots{
+	display: flex;
+	flex-direction: column;
+	margin-right: 70px;
+}
+
+
+.login-page-three__spots-search{
+	box-sizing: border-box;
+
+	align-items: flex-start;
+	padding: 18px 40px;
+
+	width: 607.04px;
+
+	border: 3px solid #1D428A;
+	border-radius: 56px;
+
+	margin: auto;
+
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 32px;
+	line-height: 62px;
+
+
+	color: #1D428A;
+}
+
+.login-page-three__spots-select{
+	box-sizing: border-box;
+
+	/* Auto layout */
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 18px 40px;
+
+	width: 607.04px;
+
+	border: 3px solid #1D428A;
+	border-radius: 56px;
+
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 50px;
+}
+
+.login-page-three__description{
+	margin-left: 70px;
+}
+
+
+.login-page-three__description-body{
+	box-sizing: border-box;
+
+	width: 505px;
+	height: 330px;
+
+	background: #FFFFFF;
+	border: 3px solid #1D428A;
+	border-radius: 50px;
+
+	margin: auto;
+
+	/* action text */
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 32px;
+	line-height: 62px;
+
+	padding-left: 50px;
+	padding-right: 50px;
+	color: #1D428A;
+}

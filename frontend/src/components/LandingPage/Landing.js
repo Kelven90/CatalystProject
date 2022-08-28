@@ -11,7 +11,7 @@ function Landing(props) {
       <div className="landing__title">
         study buddies
       </div>
-      <GeneralInfo />
+      <GeneralInfo setCurrentPage={ props.setCurrentPage } />
       <HowItWork />
       <FAQ />
     </div>

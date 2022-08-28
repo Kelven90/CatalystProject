@@ -6,9 +6,10 @@ function HowItWorkCard(props) {
       { /*<img/>*/ }
       <img
            className="how-it-work-card__img"
-           src={ props.img_src } />
+           src={ props.img_src }
+           alt="image" />
       <div className="how-it-work-card__description">
-        {props.description}
+        { props.description }
       </div>
     </div>
     );

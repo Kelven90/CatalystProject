@@ -1,0 +1,55 @@
+.login-page-one__form{
+	margin: auto;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	padding-top: 40px;
+	padding-bottom: 50px;
+}
+
+.login-page-one__form-title{
+	width: 945px;
+	/* main heading */
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 50px;
+	line-height: 62px;
+
+	/* or 124% */
+	text-align: center;
+
+	color: #1D428A;
+
+	padding-top: 50px;
+	margin: auto;
+}
+
+.login-page-one__form-input{
+	width: 648.84px;
+	height: 100px;
+
+	/* action text */
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 25px;
+	line-height: 62px;
+
+	text-align: left;
+	text-indent: 50px;
+
+	color: #1D428A;
+
+	margin-top: 20px;
+	margin-bottom: 20px;
+
+	border: 3px solid  #1D428A;
+	border-radius: 56px;
+}
+
+.login-page-one__form-input::placeholder{
+	color: #1D428A;
+	font-style: italic;
+}
+

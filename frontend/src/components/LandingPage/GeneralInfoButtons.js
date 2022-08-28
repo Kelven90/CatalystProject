@@ -3,11 +3,11 @@ import "./GeneralInfoButtons.css";
 function GeneralInfoButtons(props) {
 
   const loginHandler = (event) => {
-    console.log("login button clicked");
+    props.setCurrentPage("LoginPage");
   };
 
   const learnMoreHandler = (event) => {
-    console.log("Learn More button clicked");
+    props.setCurrentPage("LearnMorePage");
   };
 
   return (

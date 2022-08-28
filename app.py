@@ -12,7 +12,7 @@ app.permanent_session_lifetime = timedelta(minutes=30)
 
 # #connect to your Mongo DB database
 def MongoDB():
-    client = MongoClient("mongodb+srv://Kelven:JokerX1990@cluster0.prbdnzh.mongodb.net/?retryWrites=true&w=majority")
+    client = MongoClient("mongodb+srv://Kelven:team404notfound@cluster0.prbdnzh.mongodb.net/?retryWrites=true&w=majority")
     db = client.get_database('total_records')
     records = db.register
     return records

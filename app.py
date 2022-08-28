@@ -15,10 +15,6 @@ def MongoDB():
     return records
 records = MongoDB()
 
-@app.route("/")
-def home():
-    return render_template("homepage.html", content="This is Homepage")
-
 @app.route("/register", methods=['post', 'get'])
 def index():
     message = ''
@@ -61,13 +57,12 @@ def index():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-    message = 'Please login to your account'
     # if "email" in session:
     #     return redirect(url_for("logged_in"))
 
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
+        email = request.json['email']
+        password = request.json['password']
 
         #check if email exists in database
         email_found = records.find_one({"email": email})
@@ -98,7 +93,7 @@ def login():
 
 
     #return render_template('login.html', message=message)
-    return me_api(user_input)
+    # return me_api(user_input)
 
 @app.route('/logged_in')
 def logged_in():

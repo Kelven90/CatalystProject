@@ -1,6 +1,6 @@
 .faq-entry{
 	width: 947.33px;
-	font-family: 'DM Sans';
+	font-family: 'DM Sans' !important;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 22px;

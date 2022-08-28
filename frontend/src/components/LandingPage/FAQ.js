@@ -15,7 +15,7 @@ function FAQ(props) {
            <div className="faq__title">
              Frequently asked questions
            </div>
-           <div faq__faqs>
+           <div className="faq__faqs">
              { faqs.map((item, i) => (<FAQEntry
                                                 key={ i }
                                                 summary={ item[0] }

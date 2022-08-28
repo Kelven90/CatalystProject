@@ -35,14 +35,14 @@ def match():
     match_request = db.user_collection.find_one({"name": "Adam I"}) # for dummy user input
 
     match_request['_id'] = str(match_request['_id'])
-    
-    similarity_scores = dict()
-    
+
     all_docs = db.user_collection.find({"subjects": {"$in": match_request["subjects"]}})
 
     matches = []
     for doc in all_docs:
         doc['_id'] = str(doc['_id'])
+        if (doc['_id'] == match_request['_id']):
+            continue
         matches.append(doc)
 
     return jsonify(matches)

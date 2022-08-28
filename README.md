@@ -31,7 +31,8 @@ Used MongoDB to store/access user’s data
 - More customization of study preferences.
 ## Authors
 
-- [@hiukong](https://www.github.com/hiukongDan)
-- [@kelven](https://www.github.com/Kelven90)
-- [@victoria](https://www.github.com/vockoi)
+- [@Hiukong Dan](https://www.github.com/hiukongDan)
+- [@Kelven Lai](https://www.github.com/Kelven90)
+- [@Victoria Halim](https://www.github.com/vockoi)
+- [@Mai Pham](https://github.com/maiphs)
 

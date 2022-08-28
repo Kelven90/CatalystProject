@@ -25,9 +25,15 @@ function Login(props) {
 
   useEffect(() => {
     const fetchLogin = async() => {
-      await fetch("/login")
-        .then(res => res.json())
-        .then(console.log(res));
+      await fetch("/login", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(loginObjDefaultValue),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
     };
     fetchLogin();
   }, []);

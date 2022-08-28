@@ -16,7 +16,7 @@ function LoginPageTwo(props) {
 
   const [course, setCourse] = useState("");
   const [date, setDate] = useState("");
-  const [subject, setSubject] = useState("");
+  const [subjects, setSubject] = useState([]);
 
   const onCourseChange = (event) => {
     setCourse(event.target.value);
@@ -25,6 +25,12 @@ function LoginPageTwo(props) {
   const onDateChange = (event) => {
     setDate(event.target.value.toISOString().slice(0, 10));
   }
+
+// const OnSubjectAdd = (event) => {
+//   setData((prev) => {
+//     []
+//   })
+// }
 
 
 

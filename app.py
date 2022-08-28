@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, url_for, redirect, session
+from flask import Flask, render_template, request, url_for, redirect, session, make_response
 from datetime import timedelta
 from pymongo import MongoClient
 import bcrypt
+
 
 app = Flask(__name__)
 app.secret_key = "catalyst"
@@ -61,8 +62,8 @@ def index():
 @app.route("/login", methods=["POST", "GET"])
 def login():
     message = 'Please login to your account'
-    if "email" in session:
-        return redirect(url_for("logged_in"))
+    # if "email" in session:
+    #     return redirect(url_for("logged_in"))
 
     if request.method == "POST":
         email = request.form.get("email")
@@ -79,16 +80,21 @@ def login():
                 session.permanent = True
                 session["email"] = email_val
                 user_input = {'email': email_val, 'password': password}
-                me_api(user_input)
-                return redirect(url_for('logged_in'))
+                # me_api(user_input)
+                # return redirect(url_for('logged_in'))
+                return me_api(user_input)
             else:
                 if "email" in session:
-                    return redirect(url_for("logged_in"))
-                message = 'Wrong password'
-                return render_template('login.html', message=message)
+                    # return redirect(url_for("logged_in"))
+                    return not_found(404)
+                # message = 'Wrong password'
+                # return render_template('login.html', message=message)
+                
+                return not_found(404)
         else:
             message = 'Email not found'
-            return render_template('login.html', message=message)
+            # return render_template('login.html', message=message)
+            return not_found(404)
 
 
     #return render_template('login.html', message=message)
@@ -127,6 +133,11 @@ def me_api(dict):
         "password": dict['password'],
         }  
 
+@app.errorhandler(404)
+def not_found(error):
+    resp = make_response(render_template('error.html'), 404)
+    resp.headers['ERROR'] = 'A value'
+    return resp
 
 if __name__ == "__main__":
   app.run(debug=True)

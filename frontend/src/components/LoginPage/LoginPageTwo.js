@@ -1,6 +1,7 @@
 import "./Login.css";
 import "./LoginPageTwo.css";
 import LoginPrev from "./LoginPrev";
+import HomePageLink from "./HomePageLink";
 
 function LoginPageTwo(props) {
   const courses = ["Bachelor of Arts", "Bachelor of Commerce", "Bachelor of Science"];
@@ -71,13 +72,7 @@ function LoginPageTwo(props) {
                Continue
              </button>
            </div>
-           <div className="login__container">
-             <button
-                     className="login__homepage"
-                     onClick={ () => props.setCurrentPage("LandingPage") }>
-               Home Page
-             </button>
-           </div>
+           <HomePageLink setCurrentPage={ props.setCurrentPage } />
          </div>
 }
 

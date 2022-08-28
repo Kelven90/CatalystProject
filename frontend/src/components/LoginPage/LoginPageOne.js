@@ -1,9 +1,14 @@
 import "./Login.css";
 import "./LoginPageOne.css";
+import HomePageLink from "./HomePageLink";
 
 function LoginPageOne(props) {
 
   const welcomeMsg = "Welcome! Please login with your UoM student email and password below. ";
+
+  const onUserNameChange = (event) => {
+    // props.setLoginObj()
+  };
 
   const continueHandler = () => {
     // TODO:
@@ -28,10 +33,12 @@ function LoginPageOne(props) {
               </div>
               <form className="login-page-one__form">
                 <input
+                       id="username"
                        className="login-page-one__form-input"
                        type="text"
                        placeholder="Username/email" />
                 <input
+                       id="password"
                        className="login-page-one__form-input"
                        type="password"
                        placeholder="Password" />
@@ -42,13 +49,7 @@ function LoginPageOne(props) {
                 </button>
               </form>
             </div>
-            <div className="login__container">
-              <button
-                      className="login__homepage"
-                      onClick={ () => props.setCurrentPage("LandingPage") }>
-                Home Page
-              </button>
-            </div>
+            <HomePageLink setCurrentPage={ props.setCurrentPage } />
           </div>);
 }
 

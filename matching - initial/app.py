@@ -37,8 +37,8 @@ def match():
     match_request['_id'] = str(match_request['_id'])
     
     similarity_scores = dict()
-
-    all_docs = db.user_collection.find({"subjects": match_request["subjects"]})
+    
+    all_docs = db.user_collection.find({"subjects": {"$in": match_request["subjects"]}})
 
     matches = []
     for doc in all_docs:

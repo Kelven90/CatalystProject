@@ -3,14 +3,10 @@ from datetime import timedelta
 from pymongo import MongoClient
 import bcrypt
 
-#set app as a Flask instance 
 app = Flask(__name__)
-#encryption relies on secret keys so they could be run
 app.secret_key = "catalyst"
-# set the duration of a session
 app.permanent_session_lifetime = timedelta(minutes=30)
 
-# #connect to your Mongo DB database
 def MongoDB():
     client = MongoClient("mongodb+srv://Kelven:team404notfound@cluster0.prbdnzh.mongodb.net/?retryWrites=true&w=majority")
     db = client.get_database('total_records')
@@ -18,11 +14,12 @@ def MongoDB():
     return records
 records = MongoDB()
 
+
 @app.route("/")
 def home():
     return render_template("homepage.html", content="This is Homepage")
 
-#assign URLs to have a particular route 
+
 @app.route("/register", methods=['post', 'get'])
 def index():
     message = ''
@@ -63,6 +60,7 @@ def index():
             return render_template('logged_in.html', email=new_email)
     return render_template('index.html')
 
+
 @app.route("/login", methods=["POST", "GET"])
 def login():
     message = 'Please login to your account'
@@ -97,6 +95,7 @@ def login():
 
 
     return render_template('login.html', message=message)
+
 
 @app.route('/logged_in')
 def logged_in():

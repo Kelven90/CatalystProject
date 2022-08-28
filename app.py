@@ -5,7 +5,7 @@ import bcrypt
 #set app as a Flask instance 
 app = Flask(__name__)
 #encryption relies on secret keys so they could be run
-app.secret_key = "testing"
+app.secret_key = "catalyst"
 
 # #connect to your Mongo DB database
 def MongoDB():
@@ -36,9 +36,12 @@ records = MongoDB()
 
 # records = dockerMongoDB()
 
+@app.route("/")
+def home():
+    return render_template("homepage.html", content="This is Homepage")
 
 #assign URLs to have a particular route 
-@app.route("/", methods=['post', 'get'])
+@app.route("/register", methods=['post', 'get'])
 def index():
     message = ''
     #if method post in index
@@ -99,7 +102,7 @@ def login():
                 if "email" in session:
                     return redirect(url_for("logged_in"))
                 message = 'Wrong password'
-                return render_template('login.html', message=message)
+                return render_template('login.html', message=message, content = "test")
         else:
             message = 'Email not found'
             return render_template('login.html', message=message)
@@ -117,10 +120,9 @@ def logged_in():
 def logout():
     if "email" in session:
         session.pop("email", None)
-        return render_template("signout.html")
+        return render_template("logged_out.html")
     else:
         return render_template('index.html')
-
 
 
 

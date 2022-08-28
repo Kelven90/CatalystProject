@@ -10,7 +10,7 @@ function Login(props) {
   const [loginPage, setLoginPage] = useState('LoginPageOne');
   const [loginObj, setLoginObj] = useState({});
   const loginObjDefaultValue = {
-    "username": "",
+    "email": "",
     "password": "",
     "course": "",
     "start_date": "",
@@ -20,7 +20,7 @@ function Login(props) {
   };
 
   const testData = {
-    "username": "user",
+    "email": "user",
     "password": "123456",
     "course": "",
     "start_date": "",

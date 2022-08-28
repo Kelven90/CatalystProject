@@ -16,3 +16,14 @@
 
 	color: #000000;
 }
+
+.landing__logo{
+	width: 500px;
+	margin: auto;
+	margin-bottom: -100px;
+}
+
+.landing__logo-container{
+	margin: auto;
+	display: flex;
+}

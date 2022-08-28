@@ -1,19 +1,35 @@
 import "./Login.css";
 import "./LoginPageOne.css";
 import HomePageLink from "./HomePageLink";
+import React, { useState } from "react";
 
 function LoginPageOne(props) {
 
   const welcomeMsg = "Welcome! Please login with your UoM student email and password below. ";
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   const onUserNameChange = (event) => {
-    // props.setLoginObj()
+    setUsername(event.target.value);
   };
+
+  const onUserPasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
 
   const continueHandler = () => {
     // TODO:
     // verify user input
     // save user input
+    props.setLoginObj((prev) => {
+      return {
+        ...prev,
+        "username": username,
+        "password": password
+      }
+    });
     props.setLoginPage("LoginPageTwo");
   }
 
@@ -36,12 +52,14 @@ function LoginPageOne(props) {
                        id="username"
                        className="login-page-one__form-input"
                        type="text"
-                       placeholder="Username/email" />
+                       placeholder="Username/email"
+                       onChange={ onUserNameChange } />
                 <input
                        id="password"
                        className="login-page-one__form-input"
                        type="password"
-                       placeholder="Password" />
+                       placeholder="Password"
+                       onChange={ onUserPasswordChange } />
                 <button
                         className="login-button__continue"
                         onClick={ continueHandler }>
@@ -49,7 +67,10 @@ function LoginPageOne(props) {
                 </button>
               </form>
             </div>
-            <HomePageLink setCurrentPage={ props.setCurrentPage } />
+            <HomePageLink callback={ () => {
+                                       props.clearLoginObj();
+                                       props.setCurrentPage("LandingPage");
+                                     } } />
           </div>);
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.css";
 import LoginPageOne from "./LoginPageOne";
 import LoginPageTwo from "./LoginPageTwo";
@@ -19,7 +19,18 @@ function Login(props) {
     "profile_description": ""
   };
 
+  const clearLoginObj = () => {
+    setLoginObj(loginObjDefaultValue);
+  };
 
+  useEffect(() => {
+    const fetchLogin = async() => {
+      await fetch("/login")
+        .then(res => res.json())
+        .then(console.log(res));
+    };
+    fetchLogin();
+  }, []);
 
 
   if (loginPage === "LoginPageOne") {
@@ -27,17 +38,20 @@ function Login(props) {
     return <LoginPageOne
                          setCurrentPage={ props.setCurrentPage }
                          setLoginPage={ setLoginPage }
-                         setLoginObj={ setLoginObj } />
+                         setLoginObj={ setLoginObj }
+                         clearLoginObj={ clearLoginObj } />
   } else if (loginPage === "LoginPageTwo") {
     return <LoginPageTwo
                          setCurrentPage={ props.setCurrentPage }
                          setLoginPage={ setLoginPage }
-                         setLoginObj={ setLoginObj } />
+                         setLoginObj={ setLoginObj }
+                         clearLoginObj={ clearLoginObj } />
   } else if (loginPage === "LoginPageThree") {
     return <LoginPageThree
                            setCurrentPage={ props.setCurrentPage }
                            setLoginPage={ setLoginPage }
-                           setLoginObj={ setLoginObj } />
+                           setLoginObj={ setLoginObj }
+                           clearLoginObj={ clearLoginObj } />
   } else {
     return <p>
              Error Page

@@ -74,7 +74,10 @@ function LoginPageThree(props) {
                Finish
              </button>
            </div>
-           <HomePageLink setCurrentPage={ props.setCurrentPage } />
+           <HomePageLink callback={ () => {
+                                      props.clearLoginObj();
+                                      props.setCurrentPage("LandingPage");
+                                    } } />
          </div>
 }
 

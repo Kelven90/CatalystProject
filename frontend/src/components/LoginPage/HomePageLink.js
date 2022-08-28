@@ -4,7 +4,7 @@ function HomePageLink(props) {
   return <div className="login__container">
            <button
                    className="login__homepage"
-                   onClick={ () => props.setCurrentPage("LandingPage") }>
+                   onClick={ props.callback }>
              Home Page
            </button>
          </div>

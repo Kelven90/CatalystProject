@@ -2,15 +2,32 @@ import "./Login.css";
 import "./LoginPageTwo.css";
 import LoginPrev from "./LoginPrev";
 import HomePageLink from "./HomePageLink";
+import React, { useState } from "react";
 
 function LoginPageTwo(props) {
+
   const courses = ["Bachelor of Arts", "Bachelor of Commerce", "Bachelor of Science"];
   const continueHandler = () => {
     // TODO:
     // verify user input
     // save user input
     props.setLoginPage("LoginPageThree");
+  };
+
+  const [course, setCourse] = useState("");
+  const [date, setDate] = useState("");
+  const [subject, setSubject] = useState("");
+
+  const onCourseChange = (event) => {
+    setCourse(event.target.value);
+  };
+
+  const onDateChange = (event) => {
+    setDate(event.target.value.toISOString().slice(0, 10));
   }
+
+
+
   return <div>
            <div className="login__title">
              study buddies
@@ -21,7 +38,15 @@ function LoginPageTwo(props) {
              <div className="login__progress-bar-right login__progress-bar-2-right">
              </div>
            </div>
-           <LoginPrev callback={ () => props.setLoginPage("LoginPageOne") } />
+           <LoginPrev callback={ () => {
+                                   props.setLoginObj((prev) => {
+                                     return {
+                                       ...prev,
+                                 
+                                     }
+                                   });
+                                   props.setLoginPage("LoginPageOne")
+                                 } } />
            <div className="login-page-two__course">
              <div className="login-page-two__course-title">
                What’s your course and start date?
@@ -41,6 +66,11 @@ function LoginPageTwo(props) {
                    </option>
                  )) }
              </select>
+             <input
+                    className="login-page-two__course-selection"
+                    type="date"
+                    min="2001-01-01"
+                    max="2025-01-01" />
            </div>
            <div>
            </div>
@@ -72,7 +102,10 @@ function LoginPageTwo(props) {
                Continue
              </button>
            </div>
-           <HomePageLink setCurrentPage={ props.setCurrentPage } />
+           <HomePageLink callback={ () => {
+                                      props.clearLoginObj();
+                                      props.setCurrentPage("LandingPage");
+                                    } } />
          </div>
 }
 

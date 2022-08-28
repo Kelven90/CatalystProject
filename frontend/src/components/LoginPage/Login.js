@@ -19,6 +19,19 @@ function Login(props) {
     "profile_description": ""
   };
 
+  const testData = {
+    "username": "user",
+    "password": "123456",
+    "course": "",
+    "start_date": "",
+    "subjects": [],
+    "study_spots": [],
+    "profile_description": ""
+  };
+
+
+  /* ======================== test ======================== */
+
   const clearLoginObj = () => {
     setLoginObj(loginObjDefaultValue);
   };
@@ -31,7 +44,7 @@ function Login(props) {
         headers: {
           "Content-type": "application/json"
         },
-        body: JSON.stringify(loginObjDefaultValue),
+        body: JSON.stringify(testData),
       })
         .then((res) => res.json())
         .then((data) => console.log(data));
@@ -39,6 +52,7 @@ function Login(props) {
     fetchLogin();
   }, []);
 
+  /* =========================================================== */
 
   if (loginPage === "LoginPageOne") {
     console.log("loginPageOne");

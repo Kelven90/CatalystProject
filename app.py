@@ -9,7 +9,7 @@ app.secret_key = "catalyst"
 app.permanent_session_lifetime = timedelta(minutes=30)
 
 def MongoDB():
-    client = MongoClient("mongodb+srv://Kelven:team404notfound@cluster0.prbdnzh.mongodb.net/?retryWrites=true&w=majority")
+    client = MongoClient("mongodb+srv://<username>:<password@cluster0.prbdnzh.mongodb.net/?retryWrites=true&w=majority")
     db = client.get_database('total_records')
     records = db.register
     return records
